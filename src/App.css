@@ -1,0 +1,17 @@
+#root {
+  width: 100%;
+  margin: 0 auto;
+  padding: 0rem;
+  text-align: center;
+}
+
+.sp-layout {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+}
+.sp-editor {
+  display: flex;
+  height: 100%;
+}
