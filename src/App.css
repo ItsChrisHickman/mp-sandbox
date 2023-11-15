@@ -83,22 +83,28 @@ aside li a:hover {
 }
 .custom-layout,
 .custom-editor {
-  flex: 1;
-  flex-grow: column;
+  flex: 50 50 1px;
   height: 100% !important;
 }
 .custom-preview {
+  height: 540px;
   max-height: 540px;
-  // display: block;
+  display: block;
 }
 .custom-preview-container {
   display: block;
   background: transparent;
   padding-bottom: 40px;
+  min-height: 540px;
 }
 .custom-console-wrapper {
-  display: block;
+}
+.sp-stack {
+  width: 100% !important;
+  height: 100% !important;
 }
 .sp-error {
   background: #600 !important;
+}
+.sp-console-item {
 }

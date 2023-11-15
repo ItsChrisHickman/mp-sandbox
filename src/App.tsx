@@ -49,7 +49,7 @@ const App = () => {
     });
     // we can synchronously find the nearest sweep
     let nearest = await getNearestSweep(sweeps, { x: 0, y: 0, z: 0 });
-//    console.log(nearest);
+    console.log(nearest);
   };
 
   setupSDK();
@@ -115,7 +115,6 @@ const App = () => {
               showLineNumbers: true, // default - true
               showInlineErrors: false, // default - false
               wrapContent: true, // default - false
-              editorHeight: "100%", // default - 300
               showConsole: true,
               showConsoleButton: true,
               classes: {
