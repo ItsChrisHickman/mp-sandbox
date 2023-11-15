@@ -4,21 +4,56 @@ import { sandpackDark } from "@codesandbox/sandpack-themes";
 
 import "./App.css";
 
+const sdkKey = "3nhn5rm8hmr1x74hsr46t7fud";
+
 const App = () => {
   const indexHTML = `
     <div id="app"></div>
 `;
   const appCSS = `body { background: #111; color: #f5f5f5 }
   iframe { width: 100%; }`;
-  const appTS = `import { setupSdk } from '@matterport/sdk';
-  import "./style.css"
+  const appTS =
+    `// Import stylesheets
+  import './style.css';
+  import { setupSdk } from '@matterport/sdk';
+
   const setupSDK = async function () {
-    const sdk = await setupSdk('3nhn5rm8hmr1x74hsr46t7fud', {
-      space: 'JGPnGQ6hosj',
+    const mpSdk = await setupSdk('` +
+    sdkKey +
+    `');
+    function getNearestSweep(sweeps, target) {
+      const nearest = {
+        distSq: Infinity,
+        sweep: null,
+      };
+      for (const sweep of sweeps) {
+        const dx = target.x - sweep[1].position.x;
+        const dy = target.y - sweep[1].position.y;
+        const dz = target.z - sweep[1].position.z;
+        const distSq = dx * dx + dy * dy + dz * dz;
+        if (distSq < nearest.distSq) {
+          nearest.sweep = sweep[1];
+          nearest.distSq = distSq;
+        }
+      }
+      return nearest.sweep;
+    }
+    // await sweep data ahead of time so that ...
+    const sweeps = await new Promise((resolve) => {
+      let sweepObserver = mpSdk.Sweep.data.subscribe({
+        onCollectionUpdated(collection) {
+          resolve(collection);
+          sweepObserver.cancel();
+        },
+      });
     });
-  }
+    // we can synchronously find the nearest sweep
+    let nearest = await getNearestSweep(sweeps, { x: 0, y: 0, z: 0 });
+//    console.log(nearest);
+  };
+
   setupSDK();
-  `;
+`;
   const defaultFiles = {
     "style.css": appCSS,
     "index.html": indexHTML,
@@ -86,7 +121,10 @@ const App = () => {
               classes: {
                 "sp-wrapper": "custom-wrapper",
                 "sp-layout": "custom-layout",
-                "sp-tab-button": "custom-tab",
+                "sp-editor": "custom-editor",
+                "sp-preview": "custom-preview",
+                "sp-preview-container": "custom-preview-container",
+                "sp-console-wrapper": "custom-console-wrapper",
               },
             }}
             customSetup={{
