@@ -76,28 +76,27 @@ aside li a:hover {
 .custom-wrapper {
   display: flex;
   flex: 1;
-  flex-grow: 1;
+  /*  flex-grow: 1; */
   flex-direction: row;
   min-height: 100%;
-  align-items: stretch;
+  /*  align-items: stretch; */
+  max-width: 100%;
 }
-.custom-layout,
-.custom-editor {
+.custom-layout {
   flex: 50 50 1px;
   height: 100% !important;
 }
 .custom-preview {
-  height: 540px;
-  max-height: 540px;
   display: block;
+  max-height: 540px;
 }
 .custom-preview-container {
   display: block;
   background: transparent;
   padding-bottom: 40px;
-  min-height: 540px;
 }
 .custom-console-wrapper {
+  display: block;
 }
 .sp-stack {
   width: 100% !important;
